@@ -19,8 +19,11 @@ Autopay payment gateway SDK — distribution `entirius-py-autopay-sdk`, import `
 - Git flow: `master` (production) + `develop` (integration); changes land via PR; semver tag on `master`.
 - Never rename the import package `autopay_sdk` — it is a public API contract.
 - Default: do not commit — git is the user's call.
+- No AI attribution in commits or PR descriptions.
 
 ## Architecture
 
-`autopay_sdk/`: `Autopay` client (`services/`) over the Autopay REST API, DTOs in `dto/`,
-`settings.py` holds the public API URLs (test/prod). Runtime deps: `requests`, `entirius-py-process-logger`.
+`src/autopay_sdk/`: `services/client.py` holds the `Autopay` client (order creation, gateway list) over the
+Autopay REST API; DTOs live in `dto/`, the request hash in `utils/hash.py`, response checks in `validators/`.
+`settings.py` holds the public API URLs (test and production). Runtime dependencies: `requests`,
+`entirius-py-process-logger`. The test suite is a local import check; it makes no network call.
